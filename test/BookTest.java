@@ -8,11 +8,18 @@ import junit.framework.TestCase;
  * To change this template use File | Settings | File Templates.
  */
 public class BookTest extends TestCase {
+    protected Book book = new Book("Refactoring", true);
+
     public void testValidReserve() {
-        assertTrue(new Book(true).reserve());
+        assertTrue(book.reserve());
     }
 
     public void testInvalidReserve() {
-        assertFalse(new Book(false).reserve());
+        book.reserve();
+        assertFalse(book.reserve());
+    }
+
+    public void testGetName() {
+        assertEquals("Refactoring", book.getName());
     }
 }

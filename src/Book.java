@@ -6,9 +6,11 @@
  * To change this template use File | Settings | File Templates.
  */
 public class Book {
+    private String name;
     private boolean available;
 
-    public Book(boolean isAvailable) {
+    public Book(String aName, boolean isAvailable) {
+        name = aName;
         available = isAvailable;
     }
 
@@ -22,4 +24,7 @@ public class Book {
         }
     }
 
+    public String getName() {
+        return name;
+    }
 }
