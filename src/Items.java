@@ -32,4 +32,8 @@ public enum Items {
             return "Sorry we don't have that book yet.";
         }
     }
+
+    public String checkCard(int cardNumber) {
+        return "Please talk to Librarian. Thank you.";
+    }
 }

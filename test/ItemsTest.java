@@ -17,4 +17,8 @@ public class ItemsTest extends TestCase {
     public void testGetBooks() {
         assertEquals("1. Refactoring\n2. Book2\n", Items.INSTANCE.getBooks());
     }
+
+    public void testCheckCard() {
+        assertEquals("Please talk to Librarian. Thank you.", Items.INSTANCE.checkCard(215));
+    }
 }
