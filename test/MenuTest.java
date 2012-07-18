@@ -8,7 +8,13 @@ import junit.framework.TestCase;
  * To change this template use File | Settings | File Templates.
  */
 public class MenuTest extends TestCase {
+    Menu menu = new Menu();
+
     public void testGetWelcomeMessage() throws Exception {
-        assertEquals("Welcome to the Biblioteca", new Menu().getWelcomeMessage());
+        assertEquals("Welcome to the Biblioteca", menu.getWelcomeMessage());
+    }
+
+    public void testGetOptionDescriptions() {
+        assertEquals("1. View all books\n2. Reserve a book\n3. Check a library card\n", menu.getOptionDescriptions());
     }
 }
