@@ -8,11 +8,22 @@
 public class Menu {
 
     Option[] options = {
-        new Option("View all books"),
-        new Option("Reserve a book"),
-        new Option("Check a library card")
+        new Option("View all books", new Lambda() {
+            @Override public String execute(Integer input) {
+                return Items.INSTANCE.getBooks();
+            }
+        }),
+        new Option("Reserve a book", new Lambda() {
+            @Override public String execute(Integer input) {
+                return Items.INSTANCE.reserveBook(input);
+            }
+        }),
+        new Option("Check a library card", new Lambda() {
+            @Override public String execute(Integer input) {
+                 return Items.INSTANCE.checkCard(input);
+             }
+        })
     };
-
     public static String getWelcomeMessage() {
         return "Welcome to the Biblioteca";
     }

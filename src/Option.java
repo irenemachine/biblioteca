@@ -8,13 +8,18 @@
  */
 public class Option {
     private String description;
+    private Lambda lambda;
 
-    public Option (String aDescription) {
+    public Option (String aDescription, Lambda aLambda) {
         description = aDescription;
+        lambda = aLambda;
     }
 
     public String getDescription() {
         return description;
     }
 
+    public Lambda getLambda() {
+        return lambda;
+    }
 }
