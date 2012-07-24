@@ -9,10 +9,18 @@
 public class Option {
     private String description;
     private Lambda lambda;
+    private String prompt;
 
     public Option (String aDescription, Lambda aLambda) {
         description = aDescription;
         lambda = aLambda;
+        prompt = null;
+    }
+
+    public Option (String aDescription, String aPrompt, Lambda aLambda) {
+        description = aDescription;
+        lambda = aLambda;
+        prompt = aPrompt;
     }
 
     public String getDescription() {
@@ -21,5 +29,9 @@ public class Option {
 
     public Lambda getLambda() {
         return lambda;
+    }
+
+    public String getPrompt() {
+        return prompt;
     }
 }

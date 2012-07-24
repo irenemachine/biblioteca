@@ -14,4 +14,8 @@ public class OptionTest extends TestCase {
     public void testGetDescription() {
         assertEquals("View all books", option.getDescription());
     }
+
+    public void testGetPrompt() {
+        assertEquals(null, option.getPrompt());
+    }
 }

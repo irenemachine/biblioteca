@@ -13,12 +13,12 @@ public class Menu {
                 return Items.INSTANCE.getBooks();
             }
         }),
-        new Option("Reserve a book", new Lambda() {
+        new Option("Reserve a book", "Enter book number: ", new Lambda() {
             @Override public String execute(Integer input) {
                 return Items.INSTANCE.reserveBook(input);
             }
         }),
-        new Option("Check a library card", new Lambda() {
+        new Option("Check a library card", "Enter card number: ", new Lambda() {
             @Override public String execute(Integer input) {
                  return Items.INSTANCE.checkCard(input);
              }
