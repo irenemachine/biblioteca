@@ -1,5 +1,3 @@
-
-import java.io.*;
 /**
  * Created with IntelliJ IDEA.
  * User: irenehaque
@@ -23,9 +21,14 @@ public class Menu {
         String allOptionDescriptions = "";
         int i = 0;
         for (Option option : options) {
-            i++;
             allOptionDescriptions += i + ". " + option.getDescription() + "\n";
+            i++;
         }
         return allOptionDescriptions;
     }
+
+    public Option getOptionByIndex(int optionIndex) {
+        return options[optionIndex];
+    }
+
 }

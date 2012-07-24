@@ -20,13 +20,13 @@ public enum Items {
         int i = 0;
         String bookNames = "";
         for(Book book : books) {
-            i++;
             bookNames += i + ". " + book.getName() + "\n";
+            i++;
         }
         return bookNames;
     }
     public String reserveBook(int bookIndex) {
-        if (bookIndex < books.length && books[bookIndex - 1].reserve())  {
+        if (bookIndex < books.length && books[bookIndex].reserve())  {
             return "Thank You! Enjoy the book.";
         } else {
             return "Sorry we don't have that book yet.";
