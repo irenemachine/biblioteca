@@ -1,7 +1,8 @@
 import junit.framework.TestCase;
-import sun.net.idn.StringPrep;
 
-import java.io.*;
+import java.io.IOException;
+
+import static org.mockito.Mockito.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -11,15 +12,13 @@ import java.io.*;
  * To change this template use File | Settings | File Templates.
  */
 public class BibliotecaTest extends TestCase {
+    Menu menu = mock(Menu.class);
+    Biblioteca b = new Biblioteca(menu);
 
-    protected void fakeInput(String input) {
-        System.setIn(new ByteArrayInputStream(input.getBytes()));
-    }
-
-    public void testReadIntegerInput() {
-        fakeInput("1");
-        try {
-            assertEquals((Integer)1, Biblioteca.readIntegerInput());
-        } catch (Exception e) {}
+    public void testStart() throws IOException {
+        when(menu.isOpen()).thenReturn(false);
+        b.start();
+        verify(menu).printWelcomeMessage();
+        verify(menu).printGoodbyeMessage();
     }
 }

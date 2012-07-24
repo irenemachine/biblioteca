@@ -9,36 +9,27 @@ import java.io.*;
  */
 public class Biblioteca {
 
+    Menu menu;
+
     public static void main(String[] args) throws IOException {
-        start();
+        Biblioteca b = new Biblioteca();
+        b.start();
     }
 
-    public static void start() throws IOException {
-        Menu menu = new Menu();
-        int optionIndex;
-        Integer input = null;
+    public Biblioteca() {
+        menu = new Menu();
+    }
 
-        System.out.println(menu.getWelcomeMessage());
+    public Biblioteca(Menu aMenu) {
+        menu = aMenu;
+    }
 
-        try {
-            System.out.println(menu.getOptionDescriptions());
-            System.out.println("Enter an option : ");
-            optionIndex = readIntegerInput();
-
-            Option selectedOption = menu.getOptionByIndex(optionIndex);
-            if (selectedOption.getPrompt() != null) {
-               System.out.println(selectedOption.getPrompt());
-               input = readIntegerInput();
-            }
-            System.out.println(selectedOption.getLambda().execute(input));
-        } catch(Exception exception) {
-            System.out.println("Select a valid option!!");
+    public void start() throws IOException {
+        menu.printWelcomeMessage();
+        while(menu.isOpen()) {
+          menu.printOptionDescriptions();
+          menu.selectOption();
         }
+        menu.printGoodbyeMessage();
     }
-
-    public static Integer readIntegerInput() throws IOException {
-        BufferedReader input = new BufferedReader(new InputStreamReader(System.in));
-        return Integer.parseInt(input.readLine());
-    }
-
 }
