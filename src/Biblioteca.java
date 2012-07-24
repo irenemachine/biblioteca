@@ -32,7 +32,7 @@ public class Biblioteca {
             }
             System.out.println(selectedOption.getLambda().execute(input));
         } catch(Exception exception) {
-            System.out.println("Invalid input. Goodbye");
+            System.out.println("Select a valid option!!");
         }
     }
 
