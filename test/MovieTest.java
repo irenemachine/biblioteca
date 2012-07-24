@@ -25,4 +25,8 @@ public class MovieTest extends TestCase {
     public void testGetNullRating() {
         assertEquals("N/A", new Movie("name", "director").getRating());
     }
+
+    public void testGetNameDirectorMovie() {
+        assertEquals("Happy Gilmore / Dennis Dugan / 10", movie.getNameDirectorRating());
+    }
 }

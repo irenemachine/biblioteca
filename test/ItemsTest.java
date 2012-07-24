@@ -21,4 +21,8 @@ public class ItemsTest extends TestCase {
     public void testCheckCard() {
         assertEquals("Please talk to Librarian. Thank you.", Items.INSTANCE.checkCard(215));
     }
+
+    public void testViewMovie() {
+        assertEquals("Happy Gilmore / Dennis Dugan / 10", Items.INSTANCE.viewMovie(2));
+    }
 }
