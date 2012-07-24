@@ -15,6 +15,7 @@ public class MenuTest extends TestCase {
     }
 
     public void testGetOptionDescriptions() {
-        assertEquals("0. View all books\n1. Reserve a book\n2. Check a library card\n", menu.getOptionDescriptions());
+        assertEquals("0. View all books\n1. Reserve a book\n2. View all movies\n3. View movie details\n" +
+                "4. Check a library card\n", menu.getOptionDescriptions());
     }
 }

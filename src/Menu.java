@@ -1,3 +1,5 @@
+import com.sun.tools.javac.comp.Enter;
+
 /**
  * Created with IntelliJ IDEA.
  * User: irenehaque
@@ -16,6 +18,16 @@ public class Menu {
         new Option("Reserve a book", "Enter book number: ", new Lambda() {
             @Override public String execute(Integer input) {
                 return Items.INSTANCE.reserveBook(input);
+            }
+        }),
+        new Option("View all movies", new Lambda() {
+            @Override public String execute(Integer input) {
+                return Items.INSTANCE.getMovies();
+            }
+        }),
+        new Option("View movie details", "Enter movie number: ", new Lambda () {
+            @Override public String execute(Integer input) {
+                return Items.INSTANCE.viewMovie(input);
             }
         }),
         new Option("Check a library card", "Enter card number: ", new Lambda() {
