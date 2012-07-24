@@ -1,4 +1,5 @@
 import java.io.BufferedReader;
+import java.io.IOException;
 import java.io.InputStreamReader;
 
 /**
@@ -81,14 +82,14 @@ public class Menu {
         }
     }
 
-    private void findAndExecuteOption(int optionIndex) {
+    private void findAndExecuteOption(int optionIndex) throws IOException{
         Integer input = null;
         Option selectedOption = getOptionByIndex(optionIndex);
         if (selectedOption.getPrompt() != null) {
             UI.print(selectedOption.getPrompt());
             try {
                 input = UI.readIntegerInput();
-            } catch(Exception exception) {
+            } catch (NumberFormatException exception) {
                 UI.print("Select a valid option!!");
             }
         }
