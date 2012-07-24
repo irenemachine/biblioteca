@@ -62,4 +62,14 @@ public enum Items {
           return "Sorry we don't have that movie yet.";
         }
     }
+
+    public String getMovies() {
+        int i = 0;
+        String movieNames = "";
+        for(Movie movie : movies) {
+            movieNames += i + ". " + movie.getName() + "\n";
+            i++;
+        }
+        return movieNames;
+    }
 }
