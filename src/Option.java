@@ -8,18 +8,18 @@
  */
 public class Option {
     private String description;
-    private Lambda lambda;
+    private OptionExecute optionExecute;
     private String prompt;
 
-    public Option (String aDescription, Lambda aLambda) {
+    public Option (String aDescription, OptionExecute aOptionExecute) {
         description = aDescription;
-        lambda = aLambda;
+        optionExecute = aOptionExecute;
         prompt = null;
     }
 
-    public Option (String aDescription, String aPrompt, Lambda aLambda) {
+    public Option (String aDescription, String aPrompt, OptionExecute aOptionExecute) {
         description = aDescription;
-        lambda = aLambda;
+        optionExecute = aOptionExecute;
         prompt = aPrompt;
     }
 
@@ -27,8 +27,8 @@ public class Option {
         return description;
     }
 
-    public Lambda getLambda() {
-        return lambda;
+    public OptionExecute getOptionExecute() {
+        return optionExecute;
     }
 
     public String getPrompt() {

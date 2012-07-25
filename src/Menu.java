@@ -25,27 +25,27 @@ public class Menu {
     }
 
     Option[] options = {
-        new Option("View all books", new Lambda() {
+        new Option("View all books", new OptionExecute() {
             @Override public String execute(Integer input) {
                 return Items.getBooks();
             }
         }),
-        new Option("Reserve a book", "Enter book number: ", new Lambda() {
+        new Option("Reserve a book", "Enter book number: ", new OptionExecute() {
             @Override public String execute(Integer input) {
                 return Items.reserveBook(input);
             }
         }),
-        new Option("View all movies", new Lambda() {
+        new Option("View all movies", new OptionExecute() {
             @Override public String execute(Integer input) {
                 return Items.getMovies();
             }
         }),
-        new Option("View movie details", "Enter movie number: ", new Lambda () {
+        new Option("View movie details", "Enter movie number: ", new OptionExecute() {
             @Override public String execute(Integer input) {
                 return Items.viewMovie(input);
             }
         }),
-        new Option("Check a library card", "Enter card number: ", new Lambda() {
+        new Option("Check a library card", "Enter card number: ", new OptionExecute() {
             @Override public String execute(Integer input) {
                  return Items.checkCard(input);
              }
@@ -94,7 +94,7 @@ public class Menu {
                 UI.print("Select a valid option!!");
             }
         }
-        UI.print(selectedOption.getLambda().execute(input));
+        UI.print(selectedOption.getOptionExecute().execute(input));
     }
 
     public boolean isOpen() {

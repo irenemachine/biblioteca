@@ -11,7 +11,7 @@ import static org.mockito.Mockito.mock;
  */
 public class OptionTest extends TestCase {
     Items Items = mock(Items.class);
-    Option option = new Option("View all books", new Lambda() { public String execute(Integer input) { return Items.getBooks(); } });
+    Option option = new Option("View all books", new OptionExecute() { public String execute(Integer input) { return Items.getBooks(); } });
 
     public void testGetDescription() {
         assertEquals("View all books", option.getDescription());
