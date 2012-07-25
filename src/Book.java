@@ -14,17 +14,19 @@ public class Book {
         available = isAvailable;
     }
 
-    public boolean reserve() {
-        if (available) {
-            available = false;
-            return true;
+    public boolean reserve() throws UnavailableException {
+        if(!available) {
+            throw new UnavailableException();
         }
-        else {
-            return false;
-        }
+        available = false;
+        return true;
     }
 
     public String getName() {
         return name;
+    }
+
+    public boolean isAvailable() {
+        return available;
     }
 }

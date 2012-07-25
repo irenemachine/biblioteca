@@ -12,6 +12,7 @@ public class ItemsTest extends TestCase {
     public void testReserveBook() {
         assertEquals("Thank You! Enjoy the book.", Items.INSTANCE.reserveBook(1));
         assertEquals("Sorry we don't have that book yet.", Items.INSTANCE.reserveBook(3));
+        assertEquals("Sorry that book is unavailable at the moment.", Items.INSTANCE.reserveBook(1));
     }
 
     public void testGetBooks() {

@@ -44,10 +44,17 @@ public enum Items {
         return bookNames;
     }
     public String reserveBook(int bookIndex) {
-        if (bookIndex < books.length && books[bookIndex].reserve())  {
-            return "Thank You! Enjoy the book.";
-        } else {
+        if (bookIndex >= books.length) {
             return "Sorry we don't have that book yet.";
+        } else if ( books[bookIndex].isAvailable())  {
+            try {
+                books[bookIndex].reserve();
+                return "Thank You! Enjoy the book.";
+            } catch(UnavailableException e) {
+                return "Sorry that book is unavailable at the moment.";
+            }
+        } else {
+            return "Sorry that book is unavailable at the moment.";
         }
     }
 

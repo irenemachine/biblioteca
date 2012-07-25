@@ -1,4 +1,6 @@
 import junit.framework.TestCase;
+import org.junit.*;
+import static org.junit.Assert.*;
 
 /**
  * Created with IntelliJ IDEA.
@@ -7,16 +9,22 @@ import junit.framework.TestCase;
  * Time: 4:46 PM
  * To change this template use File | Settings | File Templates.
  */
-public class BookTest extends TestCase {
-    protected Book book = new Book("Refactoring", true);
+public class BookTest{
+    protected Book book;
 
-    public void testValidReserve() {
+    @Before
+    public void setUp() {
+        book = new Book("Refactoring", true);
+    }
+
+    public void testValidReserve() throws UnavailableException {
         assertTrue(book.reserve());
     }
 
-    public void testInvalidReserve() {
+    @Test(expected = UnavailableException.class)
+    public void testInvalidReserve() throws UnavailableException {
         book.reserve();
-        assertFalse(book.reserve());
+        book.reserve();
     }
 
     public void testGetName() {
