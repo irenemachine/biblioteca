@@ -53,7 +53,7 @@ public class Menu {
     };
 
     public void printWelcomeMessage() {
-        UI.print("Welcome to the Biblioteca");
+        UI.print(Message.HELLO.text());
     }
 
     public void printOptionDescriptions() {
@@ -79,7 +79,7 @@ public class Menu {
                 findAndExecuteOption(optionIndex);
             }
         } catch(Exception exception) {
-            UI.print("Select a valid option!!");
+            UI.print(Message.INVALID_INPUT.text());
         }
     }
 
@@ -91,7 +91,7 @@ public class Menu {
             try {
                 input = UI.readIntegerInput();
             } catch (NumberFormatException exception) {
-                UI.print("Select a valid option!!");
+                UI.print(Message.INVALID_INPUT.text());
             }
         }
         UI.print(selectedOption.getOptionExecute().execute(input));
@@ -102,7 +102,7 @@ public class Menu {
     }
 
     public void printGoodbyeMessage() {
-        UI.print("Goodbye!");
+        UI.print(Message.GOODBYE.text());
     }
 
 }

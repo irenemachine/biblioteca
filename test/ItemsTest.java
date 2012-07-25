@@ -11,9 +11,9 @@ public class ItemsTest extends TestCase {
     Items Items = new Items();
 
     public void testReserveBook() {
-        assertEquals("Thank You! Enjoy the book.", Items.reserveBook(1));
-        assertEquals("Sorry we don't have that book yet.", Items.reserveBook(3));
-        assertEquals("Sorry that book is unavailable at the moment.", Items.reserveBook(1));
+        assertEquals(Message.RESERVE_BOOK_CONFIRMATION.text(), Items.reserveBook(1));
+        assertEquals(Message.NO_BOOK.text(), Items.reserveBook(3));
+        assertEquals(Message.UNAVAILABLE_BOOK.text(), Items.reserveBook(1));
     }
 
     public void testGetBooks() {
@@ -21,7 +21,7 @@ public class ItemsTest extends TestCase {
     }
 
     public void testCheckCard() {
-        assertEquals("Please talk to Librarian. Thank you.", Items.checkCard(215));
+        assertEquals(Message.PERMISSION_DENIED.text(), Items.checkCard(215));
     }
 
     public void testViewMovie() {

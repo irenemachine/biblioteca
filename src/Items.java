@@ -52,28 +52,28 @@ public class Items {
 
     public String reserveBook(int bookIndex) {
         if (bookIndex >= books.length) {
-            return "Sorry we don't have that book yet.";
+            return Message.NO_BOOK.text();
         } else if ( books[bookIndex].isAvailable())  {
             try {
                 books[bookIndex].reserve();
-                return "Thank You! Enjoy the book.";
+                return Message.RESERVE_BOOK_CONFIRMATION.text();
             } catch(UnavailableException e) {
-                return "Sorry that book is unavailable at the moment.";
+                return Message.UNAVAILABLE_BOOK.text();
             }
         } else {
-            return "Sorry that book is unavailable at the moment.";
+            return Message.UNAVAILABLE_BOOK.text();
         }
     }
 
     public String checkCard(int cardNumber) {
-        return "Please talk to Librarian. Thank you.";
+        return Message.PERMISSION_DENIED.text();
     }
 
     public String viewMovie(int movieIndex) {
         if (movieIndex < movies.length) {
             return movies[movieIndex].getNameDirectorRating();
         } else {
-          return "Sorry we don't have that movie yet.";
+          return Message.NO_MOVIE.text();
         }
     }
 }

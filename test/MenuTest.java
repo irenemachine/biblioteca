@@ -21,7 +21,7 @@ public class MenuTest extends TestCase {
 
     public void testPrintWelcomeMessage() throws Exception {
         menu.printWelcomeMessage();
-        verify(aUI).print("Welcome to the Biblioteca");
+        verify(aUI).print(Message.HELLO.text());
     }
 
     public void testPrintOptionDescriptions() {
@@ -38,7 +38,7 @@ public class MenuTest extends TestCase {
         when(aUI.readIntegerInput()).thenReturn(4);
         menu.selectOption();
         verify(aUI).print("Enter an option : ");
-        verify(aUI).print("Please talk to Librarian. Thank you.");
+        verify(aUI).print(Message.PERMISSION_DENIED.text());
     }
 
     public void testSelectOptionQuit() throws IOException {
@@ -52,11 +52,11 @@ public class MenuTest extends TestCase {
         when(aUI.readIntegerInput()).thenReturn(10);
         menu.selectOption();
         verify(aUI).print("Enter an option : ");
-        verify(aUI).print("Select a valid option!!");
+        verify(aUI).print(Message.INVALID_INPUT.text());
     }
 
     public void testPrintGoodbyeMessage() throws IOException {
         menu.printGoodbyeMessage();
-        verify(aUI).print("Goodbye!");
+        verify(aUI).print(Message.GOODBYE.text());
     }
 }
