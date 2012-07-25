@@ -7,9 +7,7 @@ import java.util.*;
  * Time: 12:53 AM
  * To change this template use File | Settings | File Templates.
  */
-public enum Items {
-
-    INSTANCE;
+public class Items {
 
     Book[] books = {
       new Book("Refactoring", true),
@@ -34,15 +32,24 @@ public enum Items {
       new Movie("movie14", "director 14", "14")
     };
 
-    public String getBooks() {
+    private String printMediaList(Media[] medias) {
         int i = 0;
-        String bookNames = "";
-        for(Book book : books) {
-            bookNames += i + ". " + book.getName() + "\n";
+        String names = "";
+        for(Media m: medias) {
+            names += i + ". " + m.getName() + "\n";
             i++;
         }
-        return bookNames;
+        return names;
     }
+
+    public String getBooks() {
+        return printMediaList(books);
+    }
+
+    public String getMovies() {
+        return printMediaList(movies);
+    }
+
     public String reserveBook(int bookIndex) {
         if (bookIndex >= books.length) {
             return "Sorry we don't have that book yet.";
@@ -68,15 +75,5 @@ public enum Items {
         } else {
           return "Sorry we don't have that movie yet.";
         }
-    }
-
-    public String getMovies() {
-        int i = 0;
-        String movieNames = "";
-        for(Movie movie : movies) {
-            movieNames += i + ". " + movie.getName() + "\n";
-            i++;
-        }
-        return movieNames;
     }
 }

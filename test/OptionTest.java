@@ -1,5 +1,7 @@
 import junit.framework.TestCase;
 
+import static org.mockito.Mockito.mock;
+
 /**
  * Created with IntelliJ IDEA.
  * User: irenehaque
@@ -8,8 +10,8 @@ import junit.framework.TestCase;
  * To change this template use File | Settings | File Templates.
  */
 public class OptionTest extends TestCase {
-
-    Option option = new Option("View all books", new Lambda() { public String execute(Integer input) { return Items.INSTANCE.getBooks(); } });
+    Items Items = mock(Items.class);
+    Option option = new Option("View all books", new Lambda() { public String execute(Integer input) { return Items.getBooks(); } });
 
     public void testGetDescription() {
         assertEquals("View all books", option.getDescription());

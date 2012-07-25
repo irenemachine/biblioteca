@@ -1,5 +1,7 @@
 import junit.framework.TestCase;
 
+import static org.mockito.Mockito.mock;
+
 /**
  * Created with IntelliJ IDEA.
  * User: irenehaque
@@ -8,7 +10,8 @@ import junit.framework.TestCase;
  * To change this template use File | Settings | File Templates.
  */
 public class LambdaTest extends TestCase {
-    Lambda lambda = new Lambda() { public String execute(Integer input) { return Items.INSTANCE.getBooks(); } };
+    Items Items = new Items();
+    Lambda lambda = new Lambda() { public String execute(Integer input) { return Items.getBooks(); } };
 
     public void testExecute() {
         assertEquals("0. Refactoring\n1. Book2\n", lambda.execute(null));

@@ -12,6 +12,7 @@ import java.io.InputStreamReader;
 public class Menu {
     UI UI;
     boolean open;
+    Items Items = new Items();
 
     public Menu() {
         UI = new UI(new BufferedReader(new InputStreamReader(System.in)));
@@ -26,27 +27,27 @@ public class Menu {
     Option[] options = {
         new Option("View all books", new Lambda() {
             @Override public String execute(Integer input) {
-                return Items.INSTANCE.getBooks();
+                return Items.getBooks();
             }
         }),
         new Option("Reserve a book", "Enter book number: ", new Lambda() {
             @Override public String execute(Integer input) {
-                return Items.INSTANCE.reserveBook(input);
+                return Items.reserveBook(input);
             }
         }),
         new Option("View all movies", new Lambda() {
             @Override public String execute(Integer input) {
-                return Items.INSTANCE.getMovies();
+                return Items.getMovies();
             }
         }),
         new Option("View movie details", "Enter movie number: ", new Lambda () {
             @Override public String execute(Integer input) {
-                return Items.INSTANCE.viewMovie(input);
+                return Items.viewMovie(input);
             }
         }),
         new Option("Check a library card", "Enter card number: ", new Lambda() {
             @Override public String execute(Integer input) {
-                 return Items.INSTANCE.checkCard(input);
+                 return Items.checkCard(input);
              }
         }),
     };

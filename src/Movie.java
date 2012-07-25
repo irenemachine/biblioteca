@@ -5,7 +5,7 @@
  * Time: 10:04 PM
  * To change this template use File | Settings | File Templates.
  */
-public class Movie {
+public class Movie extends Media {
 
     private String name;
     private String director;

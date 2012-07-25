@@ -5,7 +5,7 @@
  * Time: 4:45 PM
  * To change this template use File | Settings | File Templates.
  */
-public class Book {
+public class Book extends Media {
     private String name;
     private boolean available;
 
