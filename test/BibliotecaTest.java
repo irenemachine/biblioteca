@@ -15,10 +15,19 @@ public class BibliotecaTest extends TestCase {
     Menu menu = mock(Menu.class);
     Biblioteca b = new Biblioteca(menu);
 
-    public void testStart() throws IOException {
+    public void testStartQuit() throws IOException {
         when(menu.isOpen()).thenReturn(false);
         b.start();
         verify(menu).printWelcomeMessage();
+        verify(menu).printGoodbyeMessage();
+    }
+
+    public void testStart() throws IOException {
+        when(menu.isOpen()).thenReturn(true, false);
+        b.start();
+        verify(menu).printWelcomeMessage();
+        verify(menu).printOptionDescriptions();
+        verify(menu).selectOption();
         verify(menu).printGoodbyeMessage();
     }
 }
