@@ -14,11 +14,6 @@ public class Menu {
     boolean open;
     Items Items = new Items();
 
-    public Menu() {
-        UI = new UI(new BufferedReader(new InputStreamReader(System.in)));
-        open = true;
-    }
-
     public Menu(UI aUI) {
         UI = aUI;
         open = true;
@@ -69,7 +64,7 @@ public class Menu {
         return options[optionIndex];
     }
 
-    public void selectOption() {
+    public void selectOption() throws IOException {
         try {
             UI.print("Enter an option : ");
             Integer optionIndex = UI.readIntegerInput();
@@ -78,7 +73,9 @@ public class Menu {
             } else {
                 findAndExecuteOption(optionIndex);
             }
-        } catch(Exception exception) {
+        } catch(NumberFormatException exception) {
+            UI.print(Message.INVALID_INPUT.text());
+        } catch (ArrayIndexOutOfBoundsException exception) {
             UI.print(Message.INVALID_INPUT.text());
         }
     }

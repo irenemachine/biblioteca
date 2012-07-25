@@ -12,12 +12,10 @@ public class Biblioteca {
     Menu menu;
 
     public static void main(String[] args) throws IOException {
-        Biblioteca b = new Biblioteca();
+        UI UI = new UI(new BufferedReader(new InputStreamReader(System.in)));
+        Menu menu = new Menu(UI);
+        Biblioteca b = new Biblioteca(menu);
         b.start();
-    }
-
-    public Biblioteca() {
-        menu = new Menu();
     }
 
     public Biblioteca(Menu aMenu) {

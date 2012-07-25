@@ -19,7 +19,7 @@ public class MenuTest extends TestCase {
     private final UI aUI = mock(UI.class);
     Menu menu = new Menu(aUI);
 
-    public void testPrintWelcomeMessage() throws Exception {
+    public void testPrintWelcomeMessage() throws IOException {
         menu.printWelcomeMessage();
         verify(aUI).print(Message.HELLO.text());
     }
