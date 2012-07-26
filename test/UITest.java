@@ -21,7 +21,6 @@ public class UITest {
     public void testReadIntegerInput() throws IOException {
         when(aIS.readLine()).thenReturn("1");
         assertEquals((Integer)1, UI.readIntegerInput());
-        //fail("pending");
     }
 
     @Test(expected = NumberFormatException.class)
@@ -29,4 +28,11 @@ public class UITest {
         when(aIS.readLine()).thenReturn("A");
         UI.readIntegerInput();
     }
+
+    @Test
+    public void testReadStringInput() throws IOException {
+        when(aIS.readLine()).thenReturn("a string");
+        assertEquals("a string", UI.readStringInput());
+    }
+
 }

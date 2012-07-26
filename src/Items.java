@@ -9,6 +9,8 @@ import java.util.*;
  */
 public class Items {
 
+    HashMap<String, User> users = new HashMap<String, User>();
+
     Book[] books = {
       new Book("Refactoring", true),
       new Book("Book2", true)
@@ -31,6 +33,12 @@ public class Items {
       new Movie("movie13", "director 13", "13"),
       new Movie("movie14", "director 14", "14")
     };
+
+
+    public Items() {
+        users.put("111-1111", new User("password11"));
+        users.put("111-1112", new User("password12"));
+    }
 
     private String printMediaList(Media[] medias) {
         int i = 0;
@@ -65,9 +73,7 @@ public class Items {
         }
     }
 
-    public String checkCard(int cardNumber) {
-        return Message.PERMISSION_DENIED.text();
-    }
+
 
     public String viewMovie(int movieIndex) {
         if (movieIndex < movies.length) {
@@ -76,4 +82,9 @@ public class Items {
           return Message.NO_MOVIE.text();
         }
     }
+
+    public User getUser(String cardNumber) {
+        return users.get(cardNumber);
+    }
+
 }

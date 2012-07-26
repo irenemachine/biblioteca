@@ -13,6 +13,7 @@ public class Menu {
     UI UI;
     boolean open;
     Items Items = new Items();
+    String currentUser = null;
 
     public Menu(UI aUI) {
         UI = aUI;
@@ -42,9 +43,9 @@ public class Menu {
         }),
         new Option("Check a library card", "Enter card number: ", new OptionExecute() {
             @Override public String execute(Integer input) {
-                 return Items.checkCard(input);
+                 return checkCard();
              }
-        }),
+        })
     };
 
     public void printWelcomeMessage() {
@@ -58,19 +59,35 @@ public class Menu {
             i++;
         }
         UI.print(i + ". Exit");
+        UI.print((i+1) + ". " + loginOutOptionText());
     }
 
     public Option getOptionByIndex(int optionIndex) {
         return options[optionIndex];
     }
 
+    public String loginOrOut() throws IOException {
+        if(currentUser != null) {
+            logout();
+            return Message.LOGOUT_CONFIRMATION.text();
+        } else {
+            if (login()) {
+                return Message.LOGIN_CONFIRMATION.text();
+            } else {
+                return Message.INVALID_LOGIN_CREDENTIALS.text();
+            }
+        }
+    }
     public void selectOption() throws IOException {
         try {
             UI.print("Enter an option : ");
             Integer optionIndex = UI.readIntegerInput();
             if(optionIndex == options.length) {
                 open = false;
-            } else {
+            } else if (optionIndex == options.length + 1) {
+                UI.print(loginOrOut());
+            }
+            else {
                 findAndExecuteOption(optionIndex);
             }
         } catch(NumberFormatException exception) {
@@ -100,6 +117,41 @@ public class Menu {
 
     public void printGoodbyeMessage() {
         UI.print(Message.GOODBYE.text());
+    }
+
+    public String loginOutOptionText() {
+        if (currentUser == null) {
+            return "Login";
+        } else {
+            return "Logout";
+        }
+    }
+
+    public void logout() {
+        currentUser = null;
+    }
+
+    public boolean login() throws IOException{
+        UI.print("Please enter cardnumber: ");
+        String cardNumber = UI.readStringInput();
+        UI.print("Please enter password: ");
+        String password = UI.readStringInput();
+        User user = Items.getUser(cardNumber);
+        if (user != null) {
+            if(user.validatePassword(password)) {
+            currentUser = cardNumber;
+            return true;
+            }
+        }
+        return false;
+    }
+
+    public String checkCard() {
+        if(currentUser==null) {
+            return Message.PERMISSION_DENIED.text();
+        } else {
+            return Message.CARD_CHECK_SUCCESS.text() + currentUser;
+        }
     }
 
 }

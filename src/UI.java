@@ -23,6 +23,10 @@ public class UI {
         return Integer.parseInt(i);
     }
 
+    public String readStringInput() throws IOException {
+        return input.readLine();
+    }
+
     public void print(String string) {
         System.out.println(string);
     }

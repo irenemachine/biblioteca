@@ -20,10 +20,6 @@ public class ItemsTest extends TestCase {
         assertEquals("0. Refactoring\n1. Book2\n", Items.getBooks());
     }
 
-    public void testCheckCard() {
-        assertEquals(Message.PERMISSION_DENIED.text(), Items.checkCard(215));
-    }
-
     public void testViewMovie() {
         assertEquals("Happy Gilmore / Dennis Dugan / 10", Items.viewMovie(2));
     }

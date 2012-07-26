@@ -13,10 +13,11 @@ public enum Message {
     NO_BOOK("Sorry we don't have that book yet."),
     NO_MOVIE("Sorry we don't have that movie yet"),
     RESERVE_BOOK_CONFIRMATION("Thank You! Enjoy the book."),
-    LOGIN_CONFIRMATION(""),
-    LOGOUT_CONFIRMATION(""),
-    INVALID_LOGIN_CREDENTIALS(""),
-    PERMISSION_DENIED ("Please talk to Librarian. Thank you.");
+    LOGIN_CONFIRMATION("You successfully logged in"),
+    LOGOUT_CONFIRMATION("You successfully logged out"),
+    INVALID_LOGIN_CREDENTIALS("That card number or password is wrong"),
+    PERMISSION_DENIED ("Please talk to Librarian. Thank you."),
+    CARD_CHECK_SUCCESS ("Your card number is: ");
 
     private final String text;
 
