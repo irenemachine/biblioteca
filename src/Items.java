@@ -9,7 +9,7 @@ import java.util.*;
  */
 public class Items {
 
-    HashMap<String, User> users = new HashMap<String, User>();
+    HashMap<String, RegisteredUser> users = new HashMap<String, RegisteredUser>();
 
     Book[] books = {
       new Book("Refactoring", true),
@@ -34,10 +34,9 @@ public class Items {
       new Movie("movie14", "director 14", "14")
     };
 
-
     public Items() {
-        users.put("111-1111", new User("password11"));
-        users.put("111-1112", new User("password12"));
+        users.put("111-1111", new RegisteredUser("111-1111", "password11"));
+        users.put("111-1112", new RegisteredUser("111-1112", "password12"));
     }
 
     private String printMediaList(Media[] medias) {
@@ -73,8 +72,6 @@ public class Items {
         }
     }
 
-
-
     public String viewMovie(int movieIndex) {
         if (movieIndex < movies.length) {
             return movies[movieIndex].getNameDirectorRating();
@@ -83,7 +80,7 @@ public class Items {
         }
     }
 
-    public User getUser(String cardNumber) {
+    public RegisteredUser getRegisteredUser(String cardNumber) {
         return users.get(cardNumber);
     }
 

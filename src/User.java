@@ -1,3 +1,9 @@
+import com.sun.xml.internal.ws.api.model.wsdl.WSDLBoundOperation;
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+
 /**
  * Created with IntelliJ IDEA.
  * User: irenehaque
@@ -5,15 +11,7 @@
  * Time: 3:09 PM
  * To change this template use File | Settings | File Templates.
  */
-public class User {
+public abstract class User {
 
-    private String password;
-
-    public User(String aPassword) {
-        password = aPassword;
-    }
-
-    public boolean validatePassword(String aPassword) {
-        return aPassword.equals(password);
-    }
+    public abstract String checkCard();
 }
