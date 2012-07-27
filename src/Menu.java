@@ -1,6 +1,8 @@
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.ArrayList;
+
 
 /**
  * Created with IntelliJ IDEA.
@@ -12,44 +14,64 @@ import java.io.InputStreamReader;
 public class Menu {
     UI UI;
     boolean open;
-    Items Items = new Items();
-    String currentUser = null;
+    Items items = new Items();
+    User currentUser;
 
     public Menu(UI aUI) {
         UI = aUI;
         open = true;
+        currentUser = new AnonymousUser();
     }
 
+
     Option[] options = {
-        new Option("View all books", new OptionExecute() {
-            @Override public String execute(Integer input) {
-                return Items.getBooks();
+        new Option(new String[]{"View all books"}, new OptionExecute() {
+            @Override public String execute(String[] input) {
+                return items.getBooks();
             }
         }),
-        new Option("Reserve a book", "Enter book number: ", new OptionExecute() {
-            @Override public String execute(Integer input) {
-                return Items.reserveBook(input);
+        new Option(new String[]{"Reserve a book", "Enter book number: "}, new OptionExecute() {
+            @Override public String execute(String[] input) {
+                return items.reserveBook(Integer.parseInt(input[0]));
             }
         }),
-        new Option("View all movies", new OptionExecute() {
-            @Override public String execute(Integer input) {
-                return Items.getMovies();
+        new Option(new String[]{"View all movies"}, new OptionExecute() {
+            @Override public String execute(String[] input) {
+                return items.getMovies();
             }
         }),
-        new Option("View movie details", "Enter movie number: ", new OptionExecute() {
-            @Override public String execute(Integer input) {
-                return Items.viewMovie(input);
+        new Option(new String[]{"View movie details", "Enter movie number: "}, new OptionExecute() {
+            @Override public String execute(String[] input) {
+                return items.viewMovie(Integer.parseInt(input[0]));
             }
         }),
-        new Option("Check a library card", "Enter card number: ", new OptionExecute() {
-            @Override public String execute(Integer input) {
-                 return checkCard();
+        new Option(new String[]{"Check a library card"}, new OptionExecute() {
+            @Override public String execute(String[] input) {
+                 return currentUser.checkCard();
              }
-        })
+        }),
+
+        new Option(new String[]{"Login", "Enter card number: ", "Enter password: "}, new OptionExecute() {
+            @Override
+            public String execute(String[] input) {
+                return login(input);
+            }
+        }),
+
+        new Option(new String[]{"Exit"}, new OptionExecute() {
+                @Override
+                public String execute(String[] input) {
+                    return quit();
+                }
+            })
     };
 
     public void printWelcomeMessage() {
         UI.print(Message.HELLO.text());
+    }
+
+    public void printGoodbyeMessage() {
+        UI.print(Message.GOODBYE.text());
     }
 
     public void printOptionDescriptions() {
@@ -58,38 +80,17 @@ public class Menu {
             UI.print(i + ". " + option.getDescription() + "\n");
             i++;
         }
-        UI.print(i + ". Exit");
-        UI.print((i+1) + ". " + loginOutOptionText());
     }
 
     public Option getOptionByIndex(int optionIndex) {
         return options[optionIndex];
     }
 
-    public String loginOrOut() throws IOException {
-        if(currentUser != null) {
-            logout();
-            return Message.LOGOUT_CONFIRMATION.text();
-        } else {
-            if (login()) {
-                return Message.LOGIN_CONFIRMATION.text();
-            } else {
-                return Message.INVALID_LOGIN_CREDENTIALS.text();
-            }
-        }
-    }
     public void selectOption() throws IOException {
         try {
             UI.print("Enter an option : ");
-            Integer optionIndex = UI.readIntegerInput();
-            if(optionIndex == options.length) {
-                open = false;
-            } else if (optionIndex == options.length + 1) {
-                UI.print(loginOrOut());
-            }
-            else {
-                findAndExecuteOption(optionIndex);
-            }
+            Integer optionIndex = Integer.parseInt(UI.readStringInput());
+            findAndExecuteOption(optionIndex);
         } catch(NumberFormatException exception) {
             UI.print(Message.INVALID_INPUT.text());
         } catch (ArrayIndexOutOfBoundsException exception) {
@@ -98,15 +99,11 @@ public class Menu {
     }
 
     private void findAndExecuteOption(int optionIndex) throws IOException{
-        Integer input = null;
         Option selectedOption = getOptionByIndex(optionIndex);
-        if (selectedOption.getPrompt() != null) {
-            UI.print(selectedOption.getPrompt());
-            try {
-                input = UI.readIntegerInput();
-            } catch (NumberFormatException exception) {
-                UI.print(Message.INVALID_INPUT.text());
-            }
+        String[] input = new String[selectedOption.getTextArray().length - 1];
+        for(int i = 1; i<selectedOption.getTextArray().length; i++) {
+            UI.print(selectedOption.getTextArray()[i]);
+            input[i-1] = UI.readStringInput();
         }
         UI.print(selectedOption.getOptionExecute().execute(input));
     }
@@ -115,43 +112,19 @@ public class Menu {
         return open;
     }
 
-    public void printGoodbyeMessage() {
-        UI.print(Message.GOODBYE.text());
-    }
-
-    public String loginOutOptionText() {
-        if (currentUser == null) {
-            return "Login";
-        } else {
-            return "Logout";
+    public String login(String[] input) {
+        RegisteredUser user = items.getRegisteredUser(input[0]);
+        if (user != null && user.validatePassword(input[1])) {
+        //if (user != null && user.validatePassword(input[1])) {
+            currentUser = user;
+            return Message.LOGIN_CONFIRMATION.text();
         }
+        return Message.INVALID_LOGIN_CREDENTIALS.text();
     }
 
-    public void logout() {
-        currentUser = null;
-    }
-
-    public boolean login() throws IOException{
-        UI.print("Please enter cardnumber: ");
-        String cardNumber = UI.readStringInput();
-        UI.print("Please enter password: ");
-        String password = UI.readStringInput();
-        User user = Items.getUser(cardNumber);
-        if (user != null) {
-            if(user.validatePassword(password)) {
-            currentUser = cardNumber;
-            return true;
-            }
-        }
-        return false;
-    }
-
-    public String checkCard() {
-        if(currentUser==null) {
-            return Message.PERMISSION_DENIED.text();
-        } else {
-            return Message.CARD_CHECK_SUCCESS.text() + currentUser;
-        }
+    public String quit() {
+        open = false;
+        return null;
     }
 
 }

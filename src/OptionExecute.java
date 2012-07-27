@@ -6,6 +6,6 @@
  * To change this template use File | Settings | File Templates.
  */
 interface OptionExecute {
-    public String execute(Integer input);
+    public String execute(String[] input);
 }
 

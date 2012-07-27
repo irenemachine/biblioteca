@@ -16,9 +16,15 @@ public class MenuTest extends TestCase {
     public void setUp() {
         menu = new Menu(aUI);
     }
+
     public void testPrintWelcomeMessage() throws IOException {
         menu.printWelcomeMessage();
         verify(aUI).print(Message.HELLO.text());
+    }
+
+    public void testPrintGoodbyeMessage() throws IOException {
+        menu.printGoodbyeMessage();
+        verify(aUI).print(Message.GOODBYE.text());
     }
 
     public void testPrintOptionDescriptions() {
@@ -28,74 +34,41 @@ public class MenuTest extends TestCase {
         verify(aUI).print("2. View all movies\n");
         verify(aUI).print("3. View movie details\n");
         verify(aUI).print("4. Check a library card\n");
-        verify(aUI).print("5. Exit");
-    }
-
-    public void testSelectOption() throws IOException {
-        when(aUI.readIntegerInput()).thenReturn(4);
-        menu.selectOption();
-        verify(aUI).print("Enter an option : ");
-        verify(aUI).print(Message.PERMISSION_DENIED.text());
-    }
-
-    public void testSelectOptionQuit() throws IOException {
-        when(aUI.readIntegerInput()).thenReturn(5);
-        menu.selectOption();
-        verify(aUI).print("Enter an option : ");
-        assertFalse(menu.isOpen());
+        verify(aUI).print("5. Login\n");
+        verify(aUI).print("6. Exit\n");
     }
 
     public void testSelectOptionInvalid() throws IOException {
-        when(aUI.readIntegerInput()).thenReturn(10);
+        when(aUI.readStringInput()).thenReturn("10");
         menu.selectOption();
         verify(aUI).print("Enter an option : ");
         verify(aUI).print(Message.INVALID_INPUT.text());
     }
 
-    public void testPrintGoodbyeMessage() throws IOException {
-        menu.printGoodbyeMessage();
-        verify(aUI).print(Message.GOODBYE.text());
+    public void testSelectOption() throws IOException {
+        when(aUI.readStringInput()).thenReturn("4");
+        menu.selectOption();
+        verify(aUI).print("Enter an option : ");
+        verify(aUI).print(Message.PERMISSION_DENIED.text());
     }
 
-    public void testLoginWithValidCredentials() throws IOException{
-        when(aUI.readStringInput()).thenReturn("111-1111", "password11");
-        assertTrue(menu.login());
-        verify(aUI).print("Please enter cardnumber: ");
-        verify(aUI).print("Please enter password: ");
+    public void testLogin() {
+        assertEquals(menu.login(new String[]{"111-1111", "password11"}), Message.LOGIN_CONFIRMATION.text());
+        assertEquals(menu.currentUser.getClass(), RegisteredUser.class);
     }
 
-    public void testLoginWithInvalidCredentials() throws IOException{
-        when(aUI.readStringInput()).thenReturn("111-1111", "notapassword");
-        assertFalse(menu.login());
-        verify(aUI).print("Please enter cardnumber: ");
-        verify(aUI).print("Please enter password: ");
+    public void testLoginWithInvalidPassword() {
+        assertEquals(menu.login(new String[]{"111-1111", "notmypassword"}), Message.INVALID_LOGIN_CREDENTIALS.text());
+        assertEquals(menu.currentUser.getClass(), AnonymousUser.class);
     }
 
-    public void testLogout(){
-        menu.logout();
-        assertNull(menu.currentUser);
+    public void testLoginWithInvalidCardNumber() {
+        assertEquals(menu.login(new String[]{"111-11xx", "notmypassword"}), Message.INVALID_LOGIN_CREDENTIALS.text());
+        assertEquals(menu.currentUser.getClass(), AnonymousUser.class);
     }
 
-    public void testLoginOrOut() throws IOException {
-        Menu spy = spy(menu);
-        when(spy.login()).thenReturn(true);
-         //why is this failing?
-         //how to stub an actual object?
-        spy.loginOrOut();
-        verify(aUI).print(Message.LOGIN_CONFIRMATION.text());
-        spy.loginOrOut();
-        verify(aUI).print(Message.LOGOUT_CONFIRMATION.text());
-        spy.loginOrOut();
-        verify(aUI).print(Message.INVALID_LOGIN_CREDENTIALS.text());
-    }
-
-    public void testCheckCardLoggedIn() throws IOException{
-        when(aUI.readStringInput()).thenReturn("111-1111", "password11");
-        menu.login();
-        assertEquals(menu.checkCard(), Message.CARD_CHECK_SUCCESS.text() + "111-1111");
-    }
-
-    public void testCheckCardLoggedOut() {
-        assertEquals(menu.checkCard(), Message.PERMISSION_DENIED.text());
+    public void testQuit() {
+        assertEquals(menu.quit(), null);
+        assertFalse(menu.isOpen());
     }
 }

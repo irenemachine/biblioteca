@@ -7,31 +7,25 @@
  * To change this template use File | Settings | File Templates.
  */
 public class Option {
-    private String description;
+    private String[] textArray;
     private OptionExecute optionExecute;
-    private String prompt;
+    //private String prompt;
 
-    public Option (String aDescription, OptionExecute aOptionExecute) {
-        description = aDescription;
+    public Option (String[] aTextArray, OptionExecute aOptionExecute) {
+        textArray = aTextArray;
         optionExecute = aOptionExecute;
-        prompt = null;
-    }
-
-    public Option (String aDescription, String aPrompt, OptionExecute aOptionExecute) {
-        description = aDescription;
-        optionExecute = aOptionExecute;
-        prompt = aPrompt;
     }
 
     public String getDescription() {
-        return description;
+        return textArray[0];
+    }
+
+    public String[] getTextArray() {
+        return textArray;
     }
 
     public OptionExecute getOptionExecute() {
         return optionExecute;
     }
 
-    public String getPrompt() {
-        return prompt;
-    }
 }

@@ -11,7 +11,7 @@ import static org.mockito.Mockito.mock;
  */
 public class OptionExecuteTest extends TestCase {
     Items Items = new Items();
-    OptionExecute optionExecute = new OptionExecute() { public String execute(Integer input) { return Items.getBooks(); } };
+    OptionExecute optionExecute = new OptionExecute() { public String execute(String[] input) { return Items.getBooks(); } };
 
     public void testExecute() {
         assertEquals("0. Refactoring\n1. Book2\n", optionExecute.execute(null));

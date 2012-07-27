@@ -18,11 +18,6 @@ public class UI {
         input = bufferedReader;
     }
 
-    public Integer readIntegerInput() throws IOException {
-        String i = input.readLine();
-        return Integer.parseInt(i);
-    }
-
     public String readStringInput() throws IOException {
         return input.readLine();
     }
