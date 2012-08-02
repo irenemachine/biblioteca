@@ -116,10 +116,27 @@ public class Menu {
         RegisteredUser user = items.getRegisteredUser(input[0]);
         if (user != null && user.validatePassword(input[1])) {
         //if (user != null && user.validatePassword(input[1])) {
+            options[5] =  new Option(new String[]{"Logout"}, new OptionExecute() {
+                @Override
+                public String execute(String[] input) {
+                    return logout(input);
+                }
+            });
             currentUser = user;
             return Message.LOGIN_CONFIRMATION.text();
         }
         return Message.INVALID_LOGIN_CREDENTIALS.text();
+    }
+
+    public String logout(String[] input) {
+        currentUser = new AnonymousUser();
+        options[5] = new Option(new String[]{"Login", "Enter card number: ", "Enter password: "}, new OptionExecute() {
+            @Override
+            public String execute(String[] input) {
+                return login(input);
+            }
+        });
+        return Message.LOGOUT_CONFIRMATION.text();
     }
 
     public String quit() {
